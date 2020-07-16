@@ -7,4 +7,6 @@ export interface IPost extends Document {
     readonly description: string;
     readonly body: string;
     readonly date: number;
+    readonly isEdited?: boolean;
+    readonly dateOfEdit?: number;
 }

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { IPost } from './interfaces/post.interface';
 import { CreatePostDto } from './dto/create-post.dto';
 import { IUser } from 'src/user/interfaces/user.interface';
+import * as _ from 'lodash';
 
 @Injectable()
 export class PostService {
@@ -26,9 +27,7 @@ export class PostService {
     }
 
     async editPost(_id: string, createPostDto: CreatePostDto): Promise<any> {
-        createPostDto.isEdited = true;
-        createPostDto.dateOfEdit = Date.now();
-        return await this.postModel.findByIdAndUpdate(_id, createPostDto);
+        return await this.postModel.findByIdAndUpdate(_id, _.assignIn(createPostDto, { isEdited: true, dateOfEdit: Date.now() }));
     }
 
     async deletePost(_id: string): Promise<any> {
