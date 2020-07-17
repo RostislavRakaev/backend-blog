@@ -11,10 +11,10 @@ export class Token extends mongoose.Document {
     uId: mongoose.Schema.Types.ObjectId;
 
     @Prop({ required: true })
-    expireAt: Date;
+    expireAt: number;
 
     @Prop({ default: Date.now() })
-    createdAt: Date;
+    createdAt: number;
 }
 
 export const TokenSchema = SchemaFactory.createForClass(Token);

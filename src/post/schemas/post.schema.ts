@@ -1,7 +1,6 @@
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose'
 import * as mongoose from 'mongoose'
-import * as moment from 'moment';
 
 @Schema()
 
@@ -21,14 +20,14 @@ export class Post extends Document {
     @Prop({ required: true })
     body: string;
 
-    @Prop({ default: moment().toISOString() })
-    dateOfCreation: string;
+    @Prop({ default: Date.now() })
+    dateOfCreation: number;
 
     @Prop({ default: false })
     isEdited: boolean;
 
     @Prop({ default: null })
-    dateOfEdit: string;
+    dateOfEdit: number;
 
     @Prop({ default: 0 })
     viewOfPost: number;

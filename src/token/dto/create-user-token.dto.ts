@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IsString, IsDateString } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class CreateUserTokenDto {
 
@@ -9,6 +9,6 @@ export class CreateUserTokenDto {
     @IsString()
     uId: mongoose.Schema.Types.ObjectId;
 
-    @IsDateString()
-    expireAt: string;
+    @IsNumber()
+    expireAt: number;
 }

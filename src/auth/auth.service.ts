@@ -5,7 +5,6 @@ import { TokenService } from 'src/token/token.service';
 import { CreateUserTokenDto } from 'src/token/dto/create-user-token.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { IUser } from 'src/user/interfaces/user.interface';
-import * as moment from 'moment';
 import * as bcrypt from 'bcrypt';
 import { SignInDto } from './dto/signin.dto';
 import { ConfigService } from '@nestjs/config';
@@ -41,18 +40,14 @@ export class AuthService {
             role: user.role
         }
 
-        const expireAt = moment()
-            .add(1, 'day')
-            .toISOString();
-
         const token = await this.jwtService.sign(tokenPayload, { expiresIn, secret: this.configService.get<string>('SECRET_JWT') });
 
-        return await this.saveToken({ token, uId: user._id, expireAt });
+        return await this.saveToken({ token, uId: user._id, expireAt: Date.now() + 1800000 });
     }
 
-    private async verifyToken(token): Promise<any> {
+    async verifyToken(token): Promise<any> {
         try {
-            const data = this.jwtService.verify(token);
+            const data = await this.jwtService.verify(token, { secret: this.configService.get<string>('SECRET_JWT') });
             const tokenExists = await this.tokenService.exists(data._id, token);
 
             if (tokenExists) return data;
