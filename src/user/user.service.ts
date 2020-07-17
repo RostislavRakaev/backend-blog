@@ -29,6 +29,14 @@ export class UserService {
 
     }
 
+    async findUser(_id: string): Promise<IUser> {
+        return await this.userModel.findById(_id).exec();
+    }
+
+    async findUserByEmail(email: string): Promise<IUser> {
+        return await this.userModel.findOne({ email });
+    }
+
     async getUsersPosts(_id: string): Promise<IUser> {
         return await this.userModel.findById(_id).populate('posts', this.postModel).exec();
     }

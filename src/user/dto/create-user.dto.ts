@@ -6,4 +6,5 @@ export class CreateUserDto {
     readonly country: string;
     readonly avatar: string;
     readonly password: string;
+    readonly role: string;
 }

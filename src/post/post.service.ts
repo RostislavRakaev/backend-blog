@@ -5,6 +5,7 @@ import { IPost } from './interfaces/post.interface';
 import { CreatePostDto } from './dto/create-post.dto';
 import { IUser } from 'src/user/interfaces/user.interface';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Injectable()
 export class PostService {
@@ -28,7 +29,7 @@ export class PostService {
     }
 
     async editPost(_id: string, createPostDto: CreatePostDto): Promise<any> {
-        return await this.postModel.findByIdAndUpdate(_id, _.assignIn(createPostDto, { isEdited: true, dateOfEdit: Date.now() }));
+        return await this.postModel.findByIdAndUpdate(_id, _.assignIn(createPostDto, { isEdited: true, dateOfEdit: moment().toISOString() }));
     }
 
     async deletePost(_id: string): Promise<any> {
