@@ -13,7 +13,7 @@ import { PostSchema } from 'src/post/schemas/post.schema';
     ])
   ],
   providers: [UserService],
-  exports: [],
+  exports: [UserService],
   controllers: [UserController]
 })
 export class UserModule { }
