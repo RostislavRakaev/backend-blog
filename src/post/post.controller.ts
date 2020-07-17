@@ -13,9 +13,9 @@ export class PostController {
         return res.status(HttpStatus.OK).json(posts);
     }
 
-    @Get('post')
-    async getPost(@Res() res, @Query('id', new ValidateObjectId()) postId) {
-        const post = await this.postService.getPost(postId);
+    @Get('post/:id')
+    async getPost(@Res() res, @Param('id', new ValidateObjectId()) _id: string) {
+        const post = await this.postService.getPost(_id);
         if (!post) throw new NotFoundException('Post Does not exists');
         return res.status(HttpStatus.OK).json(post);
     }
@@ -26,15 +26,15 @@ export class PostController {
         return res.status(HttpStatus.OK).json(newPost);
     }
 
-    @Put('post')
-    async editPost(@Res() res, @Query('id', new ValidateObjectId()) postId, @Body() createPostTdo: CreatePostDto) {
-        const editedPost = await this.postService.editPost(postId, createPostTdo);
+    @Put('post/:id')
+    async editPost(@Res() res, @Param('id', new ValidateObjectId()) _id, @Body() createPostTdo: CreatePostDto) {
+        const editedPost = await this.postService.editPost(_id, createPostTdo);
         return res.status(HttpStatus.OK).json(editedPost);
     }
 
-    @Delete('post')
-    async deletePost(@Res() res, @Query('id', new ValidateObjectId()) postId) {
-        const deletedPost = await this.postService.deletePost(postId);
+    @Delete('post/:id')
+    async deletePost(@Res() res, @Param('id', new ValidateObjectId()) _id) {
+        const deletedPost = await this.postService.deletePost(_id);
         return res.status(HttpStatus.OK).json(deletedPost);
     }
 }

@@ -28,6 +28,9 @@ export class Post extends Document {
 
     @Prop({ default: null })
     dateOfEdit: number;
+
+    @Prop({ default: 0 })
+    viewOfPost: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post)
