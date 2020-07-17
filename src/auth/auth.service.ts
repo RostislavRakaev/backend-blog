@@ -5,6 +5,7 @@ import { TokenService } from 'src/token/token.service';
 import { SignOptions } from 'jsonwebtoken';
 import { CreateUserTokenDto } from 'src/token/dto/create-user-token.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { IUser } from 'src/user/interfaces/user.interface';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,10 @@ export class AuthService {
         private readonly tokenService: TokenService
     ) { }
 
+    async signUp(createUserDto: CreateUserDto): Promise<IUser> {
+        return await this.userService.createUser(createUserDto);
+    }
+
     async generateToken(data, options?: SignOptions): Promise<string> {
         return this.jwtService.sign(data, options);
     }
@@ -23,6 +28,7 @@ export class AuthService {
         try {
             const data = this.jwtService.verify(token);
             const tokenExists = await this.tokenService.exists(data._id, token);
+
             if (tokenExists) return data;
             else throw new UnauthorizedException();
         } catch (error) {

@@ -8,4 +8,5 @@ export class CreatePostDto {
     readonly isEdited?: boolean;
     readonly dateOfEdit?: number;
     readonly viewOfPost?: number;
+    readonly _id?: string;
 }

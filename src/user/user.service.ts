@@ -17,6 +17,7 @@ export class UserService {
     async createUser(createUserDto: CreateUserDto): Promise<any> {
         const matchOfEmail = await this.userModel.findOne({ email: createUserDto.email }).exec();
         const matchOfNickName = await this.userModel.findOne({ nickName: createUserDto.nickName }).exec();
+
         if (!matchOfEmail && !matchOfNickName) {
             const saltRounds = 10;
             const salt = await bcrypt.genSalt(saltRounds);

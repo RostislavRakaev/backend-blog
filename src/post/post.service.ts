@@ -23,6 +23,7 @@ export class PostService {
 
     async addPost(createPostDto: CreatePostDto): Promise<IPost> {
         const newPost = await new this.postModel(createPostDto);
+        await this.userModel.findByIdAndUpdate(createPostDto.author, { $push: { posts: newPost._id } });
         return newPost.save();
     }
 
