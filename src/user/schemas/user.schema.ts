@@ -21,7 +21,7 @@ export class User extends Document {
     @Prop({ default: null })
     country: string;
 
-    @Prop({ default: null })
+    @Prop({ default: 'https://previews.123rf.com/images/nexusby/nexusby1810/nexusby181000286/111362910-default-avatar-placeholder-profile-icon-male.jpg' })
     avatar: string;
 
     @Prop({ default: [], ref: 'Post' })

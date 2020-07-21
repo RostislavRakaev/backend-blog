@@ -33,28 +33,21 @@ export class AuthService {
     }
 
     async generateToken(user: IUser): Promise<string> {
-        const expiresIn = 60 * 60 * 60;
         const tokenPayload = {
             _id: user._id,
             nickName: user.nickName,
             role: user.role
         }
 
-        const token = await this.jwtService.sign(tokenPayload, { expiresIn, secret: this.configService.get<string>('SECRET_JWT') });
-
-        return await this.saveToken({ token, uId: user._id, expireAt: Date.now() + 1800000 });
+        const token = await this.jwtService.sign(tokenPayload, { secret: this.configService.get<string>('SECRET_JWT') });
+        return await this.saveToken({ token, uId: user._id, expireAt: Date.now() + 30 * 60000 });
     }
 
     async verifyToken(token): Promise<any> {
-        try {
-            const data = await this.jwtService.verify(token, { secret: this.configService.get<string>('SECRET_JWT') });
-            const tokenExists = await this.tokenService.exists(data._id, token);
-
-            if (tokenExists) return data;
-            else throw new UnauthorizedException();
-        } catch (error) {
-            throw new UnauthorizedException();
-        }
+        const data = await this.jwtService.verify(token, { secret: this.configService.get<string>('SECRET_JWT') });
+        const getToken = await this.tokenService.get(data._id, token);
+        if (data && getToken) return getToken;
+        else throw new UnauthorizedException();
     }
 
     private async saveToken(createUserTokenDto: CreateUserTokenDto): Promise<any> {

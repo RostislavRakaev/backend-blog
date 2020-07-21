@@ -3,8 +3,9 @@ export class CreatePostDto {
     readonly photo: string;
     readonly title: string;
     readonly description: string;
-    readonly body: string;
+    readonly article: string;
     readonly dateOfCreation: number;
+    readonly tag: string;
     readonly isEdited?: boolean;
     readonly dateOfEdit?: number;
     readonly viewOfPost?: number;

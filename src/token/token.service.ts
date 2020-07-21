@@ -18,6 +18,10 @@ export class TokenService {
         return await this.tokenModel.exists({ uId, token });
     }
 
+    async get(uId: string, token: string) {
+        return await this.tokenModel.findOne({ uId, token })
+    }
+
     async delete(uId: string, token: string): Promise<any> {
         return await this.tokenModel.deleteOne({ uId, token });
     }

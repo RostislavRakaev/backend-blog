@@ -18,7 +18,7 @@ export class Post extends Document {
     description: string;
 
     @Prop({ required: true })
-    body: string;
+    article: string;
 
     @Prop({ default: Date.now() })
     dateOfCreation: number;
@@ -29,8 +29,8 @@ export class Post extends Document {
     @Prop({ default: null })
     dateOfEdit: number;
 
-    @Prop({ default: 0 })
-    viewOfPost: number;
+    @Prop({ required: true })
+    tag: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post)
