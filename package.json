@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "heroku-postbuild": "cd react-ui/ && npm install && npm install    --only=dev --no-shrinkwrap && npm run build",
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "heroku-postbuild": "echo Skip builds on Heroku",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
