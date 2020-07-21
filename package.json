@@ -6,8 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "npm run clean && nest build",
+    "clean": "rimraf dist",
     "heroku-postbuild": "echo Skip builds on Heroku",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -40,7 +40,6 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
@@ -60,6 +59,7 @@
     "eslint-plugin-import": "^2.20.1",
     "jest": "26.0.1",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
     "supertest": "^4.0.2",
     "ts-jest": "26.1.0",
     "ts-loader": "^6.2.1",
