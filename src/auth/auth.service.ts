@@ -32,6 +32,17 @@ export class AuthService {
         else throw new BadRequestException;
     }
 
+    // async generateToken(user: IUser): Promise<string> {
+    //     const tokenPayload = {
+    //         _id: user._id,
+    //         nickName: user.nickName,
+    //         role: user.role
+    //     }
+
+    //     const token = await this.jwtService.sign(tokenPayload, { secret: this.configService.get<string>('SECRET_JWT') });
+    //     return await this.saveToken({ token, uId: user._id, expireAt: Date.now() + 30 * 60000 });
+    // }
+
     async generateToken(user: IUser): Promise<string> {
         const tokenPayload = {
             _id: user._id,
@@ -39,12 +50,19 @@ export class AuthService {
             role: user.role
         }
 
-        const token = await this.jwtService.sign(tokenPayload, { secret: this.configService.get<string>('SECRET_JWT') });
+        const token = await this.jwtService.sign(tokenPayload, { secret: 'ULTIMATE_SECRET_JWT' });
         return await this.saveToken({ token, uId: user._id, expireAt: Date.now() + 30 * 60000 });
     }
 
+    // async verifyToken(token): Promise<any> {
+    //     const data = await this.jwtService.verify(token, { secret: this.configService.get<string>('SECRET_JWT') });
+    //     const getToken = await this.tokenService.get(data._id, token);
+    //     if (data && getToken) return getToken;
+    //     else throw new UnauthorizedException();
+    // }
+
     async verifyToken(token): Promise<any> {
-        const data = await this.jwtService.verify(token, { secret: this.configService.get<string>('SECRET_JWT') });
+        const data = await this.jwtService.verify(token, { secret: 'ULTIMATE_SECRET_JWT' });
         const getToken = await this.tokenService.get(data._id, token);
         if (data && getToken) return getToken;
         else throw new UnauthorizedException();
