@@ -15,7 +15,7 @@ import { TokenModule } from './token/token.module';
       isGlobal: true
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://mainless:12345678milk@cluster0-gddgz.mongodb.net/blog?retryWrites=true&w=majority', {
+      process.env.MONGO_CONNECT, {
       useNewUrlParser: true
     }
     ),
