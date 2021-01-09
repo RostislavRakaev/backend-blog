@@ -10,7 +10,7 @@
     "clean": "rimraf dist",
     "heroku-postbuild": "echo Skip builds on Heroku",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "npm run-script start:prod",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:dist": "node dist/main",
